@@ -1,0 +1,32 @@
+services:
+  # Il nostro motore Python
+  backend:
+    build: .  # Costruisci usando il Dockerfile nella cartella corrente
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    # Nota: Non c'è più il comando "pip install..." perché è già fatto!
+    environment:
+      - DATABASE_URL=postgresql://user:pass@db:5432/vrexx_db
+      - API_KEY_SEGRETA=bq4634mg
+    depends_on:
+      - db
+
+  # Il nostro database PostgreSQL
+  db:
+    image: ankane/pgvector:v0.5.1
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=pass
+      - POSTGRES_DB=vrexx_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+# <--- GUARDA QUI SOTTO:
+# Questa parola "volumes" deve essere attaccata al bordo sinistro (colonna 0),
+# esattamente come la parola "services" all'inizio del file.
+volumes:
+  postgres_data:
