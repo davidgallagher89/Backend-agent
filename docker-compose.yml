@@ -9,7 +9,7 @@ services:
     # Nota: Non c'è più il comando "pip install..." perché è già fatto!
     environment:
       - DATABASE_URL=postgresql://user:pass@db:5432/vrexx_db
-      - API_KEY_SEGRETA=bq4634mg
+      - API_KEY_SEGRETA=123prova
     depends_on:
       - db
 
